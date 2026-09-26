@@ -1,0 +1,27 @@
+name: 7/24 AFK Bot
+
+on:
+  push:
+    branches: [ main, master ]
+  schedule:
+    # GitHub işi bitirirse her 5 Saatte bir otomatik baştan başlatır
+    - cron: '0 */5 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodları Çek
+        uses: actions/checkout@v3
+
+      - name: Node.js Kur
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Mineflayer Yükle
+        run: npm install mineflayer
+
+      - name: Botu Başlat
+        run: node index.js
